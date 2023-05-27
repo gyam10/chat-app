@@ -10,9 +10,11 @@ const ChatInput = ({ sendMsg }) => {
   const handleEmojiPicker = () => {
     setShowEmojiPicker(!showEmojiPicker);
   };
-  const handleEmojiClick = (emoji) => {
+
+  const handleEmojiClick = (emojiObject, e) => {
+    console.log(emojiObject);
     let message = msg;
-    message += emoji.emoji;
+    message += emojiObject.emoji;
     setMsg(message);
   };
   const sendChat = (e) => {
@@ -26,10 +28,14 @@ const ChatInput = ({ sendMsg }) => {
   return (
     <>
       <Container>
-        <div className="btn-container">
+        <div className="button-container">
           <div className="emoji">
             <BsEmojiSmileFill onClick={handleEmojiPicker} />
-            {showEmojiPicker && <Picker onClick={handleEmojiClick} />}
+            {showEmojiPicker && (
+              <div className="emoji-picker-react">
+                <Picker onEmojiClick={handleEmojiClick} />
+              </div>
+            )}
           </div>
         </div>
         <form className="input-container" onSubmit={(e) => sendChat(e)}>
@@ -39,8 +45,9 @@ const ChatInput = ({ sendMsg }) => {
             onChange={(e) => setMsg(e.target.value)}
             value={msg}
           />
+
           <button type="submit">
-            <IoMdSend />
+            <IoMdSend size={28} />
           </button>
         </form>
       </Container>
@@ -52,10 +59,19 @@ export default ChatInput;
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 5% 95%;
   align-items: center;
+  grid-template-columns: 5% 95%;
+  background-color: #d3d3d3;
   padding: 0 2rem;
-  .btn-container {
+  @media screen and (min-width: 720px) and (max-width: 1080px) {
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+  @media screen and (min-width: 320px) and (max-width: 720px) {
+    padding: 0 0.4rem;
+    gap: 0.3rem;
+  }
+  .button-container {
     display: flex;
     align-items: center;
     color: white;
@@ -64,15 +80,13 @@ const Container = styled.div`
       position: relative;
       svg {
         font-size: 1.5rem;
-        color: #ffc700;
+        color: #ffff00c8;
         cursor: pointer;
       }
       .emoji-picker-react {
         position: absolute;
-        top: -350px;
-        background-color: #080420;
-        box-shadow: 0 5px 10px #9a86f3;
-        border-color: #9a86f3;
+        top: -455px;
+        box-shadow: 0px 6px 8px rgba(25, 50, 47, 0.08),
         .emoji-scroll-wrapper::-webkit-scrollbar {
           background-color: #080420;
           width: 5px;
@@ -118,6 +132,7 @@ const Container = styled.div`
         outline: none;
       }
     }
+
     button {
       padding: 0.3rem 2rem;
       border-radius: 2rem;
@@ -126,6 +141,19 @@ const Container = styled.div`
       justify-content: center;
       border: none;
       background-color: #383838;
+      @media screen and (min-width: 720px) and (max-width: 1080px) {
+        padding: 0.3rem 1rem;
+        svg {
+          font-size: 1rem;
+        }
+      }
+      @media screen and (min-width: 320px) and (max-width: 720px) {
+        padding: 0.3rem 0.6rem;
+        svg {
+          font-size: 0.2rem;
+        }
+        id
+      }
       svg {
         font-size: 2rem;
         color: #dfcbcf;
