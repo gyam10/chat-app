@@ -1,4 +1,5 @@
-export const host = "http://localhost:4005";
+export const host = YOUR_HOST_ADDRESS;
+
 export const registerRoute = `${host}/api/v1/register`;
 export const loginRoute = `${host}/api/v1/login`;
 export const setAvatarRoute = `${host}/api/v1/setAvatar`;
